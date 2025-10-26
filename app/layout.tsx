@@ -8,7 +8,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Power Gym - Musculación y Calistenia",
+  title: "Genesys Gym Funes - Musculación y Calistenia",
   description:
     "Gimnasio especializado en musculación con máquinas y entrenamiento funcional con calistenia. Transforma tu cuerpo con nosotros.",
   generator: "v0.app",
