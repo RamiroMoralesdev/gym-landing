@@ -2,8 +2,7 @@ import { Card } from "@/components/ui/card"
 
 const scheduleData = [
   { day: "Lunes - Viernes", hours: "7:00 AM - 21:00 PM" },
-  { day: "Sábados", hours: "8:00 AM - 13:00 PM" },
-  { day: "Domingos", hours: "CERRADO" },
+  { day: "Sábados Y Domingos", hours: "8:00 AM - 13:00 PM" },
 ]
 
 const classes = [
