@@ -21,7 +21,7 @@ export function Location() {
             <div>
               <h3 className="text-2xl font-bold mb-4">Contacto</h3>
               <p className="text-lg text-muted-foreground">
-                Teléfono: 3410000000
+                WhatsApp: 
                 
               </p>
             </div>

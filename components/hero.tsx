@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Dumbbell } from "lucide-react"
 
-const name = "GENESYS GYM"
+const name = "GENESIS GYM"
 
 export function Hero() {
   return (
@@ -20,7 +20,7 @@ export function Hero() {
         </h1>
 
         <p className="text-xl md:text-2xl text-secondary-foreground/90 mb-8 max-w-2xl mx-auto text-pretty">
-          Musculación con máquinas de última generación y entrenamiento funcional con calistenia
+          No es solo un gimnasio. Es fuerza, carácter y evolución.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

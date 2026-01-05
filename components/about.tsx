@@ -4,8 +4,8 @@ import { Dumbbell, Users, Trophy, Clock } from "lucide-react"
 const features = [
   {
     icon: Dumbbell,
-    title: "Equipamiento Premium",
-    description: "Máquinas de última generación y equipamiento profesional para todos los niveles",
+    title: "Calistenia y Pesas en un solo lugar",
+    description: "Equipamiento profesional para todos los niveles y edades",
   },
   {
     icon: Users,
@@ -20,7 +20,7 @@ const features = [
   {
     icon: Clock,
     title: "Horarios Flexibles",
-    description: "Abierto 6 días a la semana con horarios adaptados a tu rutina",
+    description: "Abierto 7 días a la semana con horarios adaptados a tu rutina",
   },
 ]
 

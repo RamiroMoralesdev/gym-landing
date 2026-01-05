@@ -8,7 +8,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Dumbbell className="w-8 h-8 text-primary" />
-              <span className="text-2xl font-bold">Genesys GYM</span>
+              <span className="text-2xl font-bold">Genesis GYM</span>
             </div>
             <p className="text-secondary-foreground/80 text-pretty">
               Tu destino para la transformación física y mental
@@ -16,29 +16,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-4">Enlaces Rápidos</h3>
-            <ul className="space-y-2 text-secondary-foreground/80">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Inicio
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Horarios
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Equipamiento
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Contacto
-                </a>
-              </li>
-            </ul>
+            
           </div>
 
           <div>
@@ -55,7 +33,7 @@ export function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-4">Redes Sociales</h3>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-primary transition-colors">
+              <a href="https://www.instagram.com/genesis.gym.funes/" className="hover:text-pink-400 transition-colors">
                 <Instagram className="w-6 h-6" />
                 <span className="sr-only">Instagram</span>
               </a>
@@ -64,7 +42,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-secondary-foreground/20 pt-8 text-center text-secondary-foreground/60">
-          <p>&copy; 2025 Power Gym. Todos los derechos reservados.</p>
+          <p>&copy; 2026 Genesis Gym. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
