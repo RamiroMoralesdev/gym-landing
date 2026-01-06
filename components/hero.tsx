@@ -11,8 +11,8 @@ export function Hero() {
       </div>
 
       <div className="container relative z-10 px-4 py-20 mx-auto text-center">
-        <div className="flex items-center justify-center mb-6">
-          <Dumbbell className="w-16 h-16 text-primary" />
+        <div className="flex items-center justify-center ">
+          <img src="/isotipo.png" alt="" width={250} />
         </div>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-secondary-foreground mb-6 text-balance">
