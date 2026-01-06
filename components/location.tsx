@@ -35,7 +35,7 @@ export function Location() {
           </div>
 
           <div className="rounded-lg overflow-hidden shadow-lg h-[400px] lg:h-auto">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1674.5687438435232!2d-60.84209605297481!3d-32.92096556108241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sar!4v1761515905941!5m2!1ses!2sar" width="600" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3349.141063731815!2d-60.84446042503729!3d-32.92087107058599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b64dc2704ffdcb%3A0x573029ed7a6cade6!2sGenesis%20Gym!5e0!3m2!1ses-419!2sar!4v1767723762800!5m2!1ses-419!2sar" width="600" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
