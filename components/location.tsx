@@ -20,10 +20,10 @@ export function Location() {
 
             <div>
               <h3 className="text-2xl font-bold mb-4">Contacto</h3>
-              <p className="text-lg text-muted-foreground">
-                WhatsApp: 
+              <a href="https://wa.link/mshn9e" target="_blank" className="text-lg text-muted-foreground">
+                WhatsApp: 3415891499
                 
-              </p>
+              </a>
             </div>
 
             <div>
