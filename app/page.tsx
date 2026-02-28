@@ -14,7 +14,6 @@ export default function Home() {
       <About />
       <Schedule />
       <Equipment />
-      <Reviews />
       <Location />
       <Footer />
     </main>
