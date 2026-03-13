@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Dumbbell } from "lucide-react"
+import Link from "next/link"
 
 const name = "GENESIS GYM"
 
@@ -35,6 +35,9 @@ export function Hero() {
             className="text-lg px-8 py-6 bg-secondary-foreground/10 text-secondary-foreground border-secondary-foreground/30 hover:bg-secondary-foreground/20"
           >
             Ver Horarios
+          </Button>
+          <Button size="lg" variant="secondary" className="text-lg px-8 py-6" asChild>
+            <Link href="/portal">Portal Alumno</Link>
           </Button>
         </div>
       </div>
