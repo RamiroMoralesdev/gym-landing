@@ -8,7 +8,26 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Spinner } from "@/components/ui/spinner"
 import { AlertCircle, CheckCircle } from "lucide-react"
 
+interface Exercise {
+  name: string
+  muscle_group: string | null
+  sets: number | null
+  reps: number | null
+  rest_seconds: number | null
+  weight: number | null
+  order_index: number
+}
+
+interface Routine {
+  id: string
+  name: string
+  estimated_duration: number | null
+  notes: string | null
+  exercises: Exercise[]
+}
+
 interface SocioProfile {
+  id: number
   nombre: string
   apellido: string
   edad: number
@@ -22,31 +41,14 @@ interface SocioProfile {
     fecha: string
     hora: string
   }>
-  socio_profile?: {
-    id: number
-    socio_id: number
+  perfil?: {
     smoke: boolean | null
     status: string | null
     weight: number | null
     goals: string | null
     age: number | null
   } | null
-  turnos_reservas?: Array<{
-    id: number
-    active: boolean
-    recurrente: boolean
-    created_at: string
-    turno_slot_id: number | null
-    weekday: number | null
-    weekday_label: string | null
-    hour: number | null
-    hour_label: string | null
-    slot: {
-      id: number
-      starts_at: string
-      max_capacity: number
-    } | null
-  }>
+  routines: Routine[]
 }
 
 export default function PortalPage() {
@@ -64,9 +66,7 @@ export default function PortalPage() {
     try {
       const response = await fetch("/api/portal/socio", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ dni: dni.trim() }),
       })
 
@@ -89,13 +89,11 @@ export default function PortalPage() {
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-950 to-gray-900 p-4">
       <div className="max-w-2xl mx-auto py-12">
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">Portal Alumno</h1>
           <p className="text-gray-400">Accede a tu perfil con tu DNI</p>
         </div>
 
-        {/* Search Form */}
         <Card className="bg-gray-900 border-gray-800 mb-8">
           <CardHeader>
             <CardTitle>Buscar Perfil</CardTitle>
@@ -111,11 +109,7 @@ export default function PortalPage() {
                 disabled={loading}
                 className="bg-gray-800 border-gray-700"
               />
-              <Button
-                type="submit"
-                disabled={loading || !dni.trim()}
-                className="w-full"
-              >
+              <Button type="submit" disabled={loading || !dni.trim()} className="w-full">
                 {loading ? (
                   <>
                     <Spinner className="mr-2 h-4 w-4" />
@@ -129,7 +123,6 @@ export default function PortalPage() {
           </CardContent>
         </Card>
 
-        {/* Error Message */}
         {error && (
           <Alert variant="destructive" className="mb-8">
             <AlertCircle className="h-4 w-4" />
@@ -137,10 +130,9 @@ export default function PortalPage() {
           </Alert>
         )}
 
-        {/* Profile */}
         {profile && (
           <div className="space-y-6">
-            {/* Welcome Card */}
+            {/* Bienvenida */}
             <Card className="bg-linear-to-r from-green-900/20 to-emerald-900/20 border-green-800">
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -149,24 +141,20 @@ export default function PortalPage() {
                     ¡Bienvenido, {profile.nombre}!
                   </h2>
                 </div>
-                <p className="text-gray-300">
-                  Tu perfil fue cargado correctamente. Aquí puedes ver tus datos.
-                </p>
+                <p className="text-gray-300">Tu perfil fue cargado correctamente.</p>
               </CardContent>
             </Card>
 
-            {/* Personal Info */}
+            {/* Info Personal */}
             <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
                 <CardTitle>Información Personal</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-gray-400">Nombre</p>
-                    <p className="text-lg font-semibold text-white">
-                      {profile.nombre} {profile.apellido}
-                    </p>
+                    <p className="text-lg font-semibold text-white">{profile.nombre} {profile.apellido}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Edad</p>
@@ -174,7 +162,7 @@ export default function PortalPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Estado</p>
-                    <p className="text-lg font-semibold text-white capitalize">{profile.estado}</p>
+                    <p className="text-lg font-semibold text-white">{profile.estado}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Miembro desde</p>
@@ -186,25 +174,29 @@ export default function PortalPage() {
               </CardContent>
             </Card>
 
-            {/* Membership Info */}
+            {/* Membresía */}
             <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
-                <CardTitle>Información de Membresía</CardTitle>
+                <CardTitle>Membresía</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-400">Plan Actual</p>
-                    <p className="text-lg font-semibold text-white">{profile.plan_actual}</p>
+                    <p className="text-sm text-gray-400">Plan</p>
+                    <p className="text-lg font-semibold text-white">{profile.plan_actual || "—"}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Monto</p>
-                    <p className="text-lg font-semibold text-white">${profile.monto_plan}</p>
+                    <p className="text-lg font-semibold text-white">
+                      {profile.monto_plan ? `$${profile.monto_plan}` : "—"}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Último Pago</p>
                     <p className="text-lg font-semibold text-white">
-                      {new Date(profile.ultimo_pago).toLocaleDateString("es-AR")}
+                      {profile.ultimo_pago
+                        ? new Date(profile.ultimo_pago).toLocaleDateString("es-AR")
+                        : "—"}
                     </p>
                   </div>
                   <div>
@@ -215,58 +207,39 @@ export default function PortalPage() {
               </CardContent>
             </Card>
 
-            {profile.socio_profile && (
+            {/* Perfil físico */}
+            {profile.perfil && (
               <Card className="bg-gray-900 border-gray-800">
                 <CardHeader>
-                  <CardTitle>Socio Profile</CardTitle>
-                  <CardDescription>
-                    Datos físicos y objetivos cargados en tu perfil de alumno.
-                  </CardDescription>
+                  <CardTitle>Perfil Físico</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                      <p className="text-sm text-gray-400">Estado del perfil</p>
-                      <p className="text-lg font-semibold text-white">
-                        {profile.socio_profile.status || "Sin definir"}
-                      </p>
-                    </div>
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm text-gray-400">Peso</p>
                       <p className="text-lg font-semibold text-white">
-                        {profile.socio_profile.weight ? `${profile.socio_profile.weight} kg` : "Sin registrar"}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Edad de perfil</p>
-                      <p className="text-lg font-semibold text-white">
-                        {profile.socio_profile.age ? `${profile.socio_profile.age} años` : "Sin registrar"}
+                        {profile.perfil.weight ? `${profile.perfil.weight} kg` : "Sin registrar"}
                       </p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-400">Fumador</p>
                       <p className="text-lg font-semibold text-white">
-                        {profile.socio_profile.smoke === null
-                          ? "Sin registrar"
-                          : profile.socio_profile.smoke
-                            ? "Sí"
-                            : "No"}
+                        {profile.perfil.smoke === null ? "Sin registrar" : profile.perfil.smoke ? "Sí" : "No"}
                       </p>
                     </div>
                   </div>
-
                   <div>
                     <p className="text-sm text-gray-400">Objetivos</p>
                     <p className="mt-1 text-base text-white">
-                      {profile.socio_profile.goals || "Todavía no cargaste objetivos."}
+                      {profile.perfil.goals || "Sin objetivos cargados."}
                     </p>
                   </div>
                 </CardContent>
               </Card>
             )}
 
-            {/* Upcoming Sessions */}
-            {profile.proximos_turnos && profile.proximos_turnos.length > 0 && (
+            {/* Próximos turnos */}
+            {profile.proximos_turnos?.length > 0 && (
               <Card className="bg-gray-900 border-gray-800">
                 <CardHeader>
                   <CardTitle>Próximos Turnos</CardTitle>
@@ -279,7 +252,11 @@ export default function PortalPage() {
                         className="flex items-center justify-between p-3 bg-gray-800 rounded-lg"
                       >
                         <span className="text-white">
-                          {new Date(turno.fecha).toLocaleDateString("es-AR")}
+                          {new Date(turno.fecha).toLocaleDateString("es-AR", {
+                            weekday: "long",
+                            day: "2-digit",
+                            month: "long",
+                          })}
                         </span>
                         <span className="text-gray-400">{turno.hora}</span>
                       </div>
@@ -289,78 +266,70 @@ export default function PortalPage() {
               </Card>
             )}
 
-            {profile.turnos_reservas && profile.turnos_reservas.length > 0 && (
+            {/* Rutinas */}
+            {profile.routines?.length > 0 && (
               <Card className="bg-gray-900 border-gray-800">
                 <CardHeader>
-                  <CardTitle>Turnos Reservados</CardTitle>
-                  <CardDescription>
-                    Reservas activas registradas para tu perfil.
-                  </CardDescription>
+                  <CardTitle>Mis Rutinas</CardTitle>
+                  <CardDescription>Rutinas asignadas por el gimnasio</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {profile.turnos_reservas.map((reserva) => (
-                      <div
-                        key={reserva.id}
-                        className="rounded-lg border border-gray-800 bg-gray-800/60 p-4"
-                      >
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <p className="font-semibold text-white">
-                              {reserva.slot?.starts_at
-                                ? new Date(reserva.slot.starts_at).toLocaleDateString("es-AR", {
-                                    weekday: "long",
-                                    day: "2-digit",
-                                    month: "long",
-                                  })
-                                : reserva.weekday_label || "Reserva sin fecha exacta"}
-                            </p>
-                            <p className="text-sm text-gray-400">
-                              {reserva.slot?.starts_at
-                                ? new Date(reserva.slot.starts_at).toLocaleTimeString("es-AR", {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  })
-                                : reserva.hour_label || "Horario a confirmar"}
-                            </p>
-                          </div>
-                          <span className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-400">
-                            {reserva.recurrente ? "Recurrente" : "Reserva puntual"}
+                <CardContent className="space-y-4">
+                  {profile.routines.map((routine) => (
+                    <div key={routine.id} className="rounded-lg border border-gray-700 bg-gray-800/60 p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-semibold text-white text-lg">{routine.name}</h3>
+                        {routine.estimated_duration && (
+                          <span className="text-sm text-gray-400">
+                            {routine.estimated_duration} min
                           </span>
-                        </div>
-
-                        <div className="mt-3 grid gap-2 text-sm text-gray-300 sm:grid-cols-2">
-                          <p>
-                            <span className="text-gray-500">ID reserva:</span> {reserva.id}
-                          </p>
-                          <p>
-                            <span className="text-gray-500">Slot:</span>{" "}
-                            {reserva.turno_slot_id ?? "Sin slot asignado"}
-                          </p>
-                          <p>
-                            <span className="text-gray-500">Capacidad:</span>{" "}
-                            {reserva.slot?.max_capacity ?? "No informada"}
-                          </p>
-                          <p>
-                            <span className="text-gray-500">Creada:</span>{" "}
-                            {new Date(reserva.created_at).toLocaleDateString("es-AR")}
-                          </p>
-                        </div>
+                        )}
                       </div>
-                    ))}
-                  </div>
+
+                      {routine.notes && (
+                        <p className="text-sm text-gray-400 mb-3">{routine.notes}</p>
+                      )}
+
+                      {routine.exercises?.length > 0 && (
+                        <div className="space-y-2">
+                          {routine.exercises.map((exercise, idx) => (
+                            <div
+                              key={idx}
+                              className="flex items-center justify-between p-3 bg-gray-900 rounded-lg"
+                            >
+                              <div>
+                                <p className="font-medium text-white">{exercise.name}</p>
+                                {exercise.muscle_group && (
+                                  <p className="text-xs text-gray-500">{exercise.muscle_group}</p>
+                                )}
+                              </div>
+                              <div className="flex gap-3 text-sm text-gray-400 text-right">
+                                {exercise.sets && exercise.reps && (
+                                  <span>{exercise.sets} × {exercise.reps}</span>
+                                )}
+                                {exercise.weight && (
+                                  <span>{exercise.weight} kg</span>
+                                )}
+                                {exercise.rest_seconds && (
+                                  <span>{exercise.rest_seconds}s descanso</span>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
             )}
           </div>
         )}
 
-        {/* Info Text */}
         {!profile && !error && (
           <Card className="bg-gray-900 border-gray-800">
             <CardContent className="pt-6">
               <p className="text-center text-gray-400">
-                Ingresa tu DNI para ver tu perfil, estado de membresía, asistencias y próximos turnos.
+                Ingresa tu DNI para ver tu perfil, membresía, turnos y rutinas.
               </p>
             </CardContent>
           </Card>
