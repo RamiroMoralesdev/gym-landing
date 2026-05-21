@@ -37,7 +37,7 @@ export function Hero() {
             Ver Horarios
           </Button>
           <Button size="lg" variant="secondary" className="text-lg px-8 py-6" asChild>
-            <Link href="/portal">Portal Alumno</Link>
+            <Link href="https://alumnos.gymcore.ar/genesis-gym">Portal Alumno</Link>
           </Button>
         </div>
       </div>
